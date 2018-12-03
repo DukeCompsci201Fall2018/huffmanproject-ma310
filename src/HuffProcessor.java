@@ -65,6 +65,23 @@ public class HuffProcessor {
 
 
 
+	private void writeHeader(HuffNode root, BitOutputStream out) {
+		int bit = out.readBits(1);
+		if (bit == -1) throw new HuffException("illegal header starts with "+bit);
+		if (bit == 0) {
+		    HuffNode left = readTreeHeader(in);
+		    HuffNode right = readTreeHeader(in);
+		    return new HuffNode(0,0,left,right);
+		}
+		else {
+		    int value = in.readBits(BITS_PER_WORD + 1);
+		    return new HuffNode(value,0,null,null);
+		}
+		
+		// TODO Auto-generated method stub
+		
+	}
+
 	private int[] readForCounts(BitInputStream in) {
 		
 		int[] freq = new int [ALPH_SIZE + 1];
@@ -122,6 +139,8 @@ public class HuffProcessor {
 		}
 		
 	}
+	
+	
 
 	/**
 	 * Decompresses a file. Output file must be identical bit-by-bit to the
