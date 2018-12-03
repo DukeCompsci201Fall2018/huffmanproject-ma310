@@ -82,10 +82,10 @@ public class HuffProcessor {
 	
 	private HuffNode makeTreeFromCounts(int[] counts) {
 		PriorityQueue<HuffNode> pq = new PriorityQueue<>();
-		int[] freq = readForCounts(in);
+		int[] freq = readForCounts();
 		
 
-		for(int i = 0; freq[i]>0, i++) {  //forevery index such that freq[index]>0
+		for(int i = 0; freq[i]>0, i++) {  //for every index such that freq[index]>0
 			pq.add(new HuffNode(i,freq[i],null,null));
 		}
 
@@ -99,7 +99,7 @@ public class HuffProcessor {
 			pq.add(t);
 		}
 		HuffNode root = pq.remove();
-		return null;
+		return root;
 	}
 
 	/**
