@@ -64,6 +64,7 @@ public class HuffProcessor {
 	}
 
 
+
 	private int[] readForCounts(BitInputStream in) {
 		
 		int[] freq = new int [ALPH_SIZE + 1];
@@ -99,6 +100,27 @@ public class HuffProcessor {
 		}
 		HuffNode root = pq.remove();
 		return root;
+	}
+	
+	private String[] makeCodingsFromTree(HuffNode root) {
+		String[] encodings = new String[ALPH_SIZE + 1];
+	    codingHelper(root,"",encodings);
+
+		return encodings;
+	}
+
+	private void codingHelper(HuffNode root, String path, String[] encodings) {
+		
+		if (root.myLeft==null && root.myRight == null) {
+	        encodings[root.myValue] = path;
+	        return;
+	   }
+		else {
+			codingHelper(root.myLeft,path+"0",encodings);
+			codingHelper(root.myRight,path+"1",encodings);
+			
+		}
+		
 	}
 
 	/**
